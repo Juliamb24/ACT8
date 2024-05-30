@@ -1,0 +1,80 @@
+
+# Pedir autores
+GET http://localhost:3000/api/authors
+
+###
+
+#  Añadir autores
+POST http://localhost:3000/api/authors
+Content-Type: application/json
+
+{
+    "name": "Pedro Gómez",
+    "email": "pedro.gomez@example.com",
+    "image": "https://example.com/images/pedro.jpg"
+}
+
+
+###
+
+# Modificar autores
+PUT http://localhost:3000/api/authors/3
+Content-Type:  application/json
+
+{
+    "name": "Pedro Smith",
+    "email": "pedro.gomez@example.com",
+    "image": "https://example.com/images/pedro.jpg"
+}
+
+
+###
+
+# Eliminar autores
+DELETE http://localhost:3000/api/authors/3
+
+
+
+###
+
+#  Pedir todos los posts con la información del autor
+GET http://localhost:3000/api/posts
+
+
+###
+
+#  Pedir posts a partir de un autor.
+GET http://localhost:3000/api/posts/author/1
+
+
+###
+
+# Añadir un nuevo posts
+POST http://localhost:3000/api/posts
+Content-Type: application/json
+
+{
+    "title": "Título 4",
+    "description": "Descripción de la cuarta publicación",
+    "category": "Caregory4"  
+
+}
+
+###
+
+# Modificar un posts a partir de la Id del post
+PUT http://localhost:3000/api/posts/4
+Content-Type: application/json
+
+{
+    "title": "Título 3",
+    "description": "Descripción de la tercera publicación",
+    "category": "Caregory3"
+    
+}
+
+
+### 
+
+# Eliminar post por Id del post
+DELETE http://localhost:3000/api/posts/9

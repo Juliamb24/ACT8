@@ -1,0 +1,178 @@
+posts.model.js:
+
+const getAllPosts = () => {
+    return db.query(' SELECT posts.*, authors.name AS author_name, authors.email AS author_email, authors.image AS author_image FROM posts LEFT JOIN authors ON posts.author_id = authors.id')
+ }
+
+
+
+ module.exports = {
+    getAllPosts
+ }
+
+
+autores.model.js:
+
+const getAll = () => {
+   return db.query('select * from authors')
+}
+
+const create = ({name, email, image}) =>{
+    return db.query('insert into authors (name, email, image) values (?,?,?)',
+    [name, email, image]
+)
+}
+
+const update = (authorId, {name, email, image}) =>{
+    return db.query('update authors set name = ?, email= ?, image = ? where id = ?',
+    [name, email, image, authorId]
+    );
+}
+
+
+const deleteById = (authorId) =>{
+    return db.query('delete from authors where id = ?', [authorId]);
+}
+
+
+module.exports ={
+    getAll, create, update, deleteById
+}
+
+
+
+posts.js:
+
+const { getAllPosts } = require('../../models/posts.model');
+
+const router = require('express').Router();
+
+
+router.get('/', async (req, res) => {
+    try {
+        const [result] = await getAllPosts();
+        res.json(result);
+    } catch (err) {
+        res.json({ error: err.message });
+    }
+});
+
+
+
+
+module.exports = router;
+
+
+
+authors.js:
+
+const router = require('express').Router();
+const { getAll, create, update, deleteById} = require('../../models/autores.model');
+
+
+
+router.get('/', async (req, res) => {
+    try {
+        const [result] = await getAll();
+        res.json(result);
+    } catch (err) {
+        res.json({ error: err.message });
+    }
+});
+
+
+
+router.post('/', async (req, res) =>{
+    try{
+        const [result] = await create(req.body);
+        res.json(result);
+    }catch(err){
+        res.json({error: err.message});
+    }
+    
+});
+
+router.put('/:authorId', async (req, res) =>{
+    try{
+        const [result] = await update(req.params.authorId, req.body);
+        res.json(result);
+    }catch(err){
+        res.json({error: err.message});
+    }
+    
+});
+
+
+router.delete('/:authorId', async (req, res) =>{
+    try{
+        const [result] = await deleteById(req.params.authorId);
+        res.json(result);
+    }catch(err){
+        res.json({error: err.message});
+    }
+});
+
+module.exports = router;
+
+
+api.js:
+const router = require('express').Router();
+
+
+const apiAuthorsRouter = require('./api/authors');
+const apiPostsRouter = require('./api/posts');
+
+router.use('/posts', apiPostsRouter);
+router.use('/authors', apiAuthorsRouter);
+
+module.exports = router;
+
+
+app.js:
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const authorsRouter = require('./routes/api/authors');
+const postsRouter = require('./routes/api/posts');
+
+require('./dbConfig');
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/api/authors', authorsRouter);
+app.use('/api/posts', postsRouter);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+module.exports = app;
