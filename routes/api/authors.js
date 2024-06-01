@@ -17,7 +17,9 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) =>{
     try{
         const [result] = await create(req.body);
-        res.json(result);
+        const message = "Autor añadido correctamente"
+        res.json({result, message});
+        
     }catch(err){
         res.json({error: err.message});
     }
@@ -27,7 +29,8 @@ router.post('/', async (req, res) =>{
 router.put('/:authorId', async (req, res) =>{
     try{
         const [result] = await update(req.params.authorId, req.body);
-        res.json(result);
+        const message = "Autor modificado correctamente"
+        res.json({result, message});
     }catch(err){
         res.json({error: err.message});
     }
@@ -38,7 +41,8 @@ router.put('/:authorId', async (req, res) =>{
 router.delete('/:authorId', async (req, res) =>{
     try{
         const [result] = await deleteById(req.params.authorId);
-        res.json(result);
+        const message = "Autor eliminado correctamente"
+        res.json({result, message});
     }catch(err){
         res.json({error: err.message});
     }
