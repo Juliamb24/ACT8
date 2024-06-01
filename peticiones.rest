@@ -9,22 +9,22 @@ POST http://localhost:3000/api/authors
 Content-Type: application/json
 
 {
-    "name": "Pedro Gómez",
-    "email": "pedro.gomez@example.com",
-    "image": "https://example.com/images/pedro.jpg"
+    "name": "Juan López",
+    "email": "juan.lopez@example.com",
+    "image": "https://example.com/images/juan.jpg"
 }
 
 
 ###
 
 # Modificar autores
-PUT http://localhost:3000/api/authors/3
+PUT http://localhost:3000/api/authors/4
 Content-Type:  application/json
 
 {
-    "name": "Pedro Smith",
-    "email": "pedro.gomez@example.com",
-    "image": "https://example.com/images/pedro.jpg"
+    "name": "Ana Gómez",
+    "email": "ana.gomez@example.com",
+    "image": "https://example.com/images/ana.jpg"
 }
 
 
@@ -54,20 +54,21 @@ POST http://localhost:3000/api/posts
 Content-Type: application/json
 
 {
-    "title": "Título 4",
-    "description": "Descripción de la cuarta publicación",
-    "category": "Caregory4"  
+    "title": "Título 7",
+    "description": "Descripción de la séptima publicación",
+    "category": "Caregory7",
+    "author_id": 6    
 
 }
 
 ###
 
 # Modificar un posts a partir de la Id del post
-PUT http://localhost:3000/api/posts/4
+PUT http://localhost:3000/api/posts/24
 Content-Type: application/json
 
 {
-    "title": "Título 3",
+    "title": "Título 24",
     "description": "Descripción de la tercera publicación",
     "category": "Caregory3"
     
@@ -77,4 +78,4 @@ Content-Type: application/json
 ### 
 
 # Eliminar post por Id del post
-DELETE http://localhost:3000/api/posts/9
+DELETE http://localhost:3000/api/posts/25

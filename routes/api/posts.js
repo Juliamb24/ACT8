@@ -24,18 +24,22 @@ router.get('/author/:authorId', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-      const postData = req.body;
-      const result = await createPost(postData);
-      res.status(201).json({ message: 'Post created successfully', data: result });
-    } catch (error) {
-      res.status(500).json({ message: 'Error creating post', error: error.message });
+        const [result] = await createPost(req.body);
+        const message = "Publicación añadida correctamente"
+        res.json({result, message});
+        
+    } catch (err) {
+        res.json({ error: err.message });
     }
-  });
+});
+
+
 
   router.put('/:postsId', async (req, res) =>{
     try{
         const [result] = await updatePost(req.params.postsId, req.body);
-        res.json(result);
+        const message = "Publicación modificada correctamente"
+        res.json({result, message});
     }catch(err){
         res.json({error: err.message});
     }
@@ -47,7 +51,8 @@ router.post('/', async (req, res) => {
 router.delete('/:postsId', async(req, res) =>{
     try{
         const [result] = await deletePosts(req.params.postsId);
-        res.json(result);
+        const message = "Publicación eliminada correctamente"
+        res.json({result, message});
     }catch(err){
         res.json({error: err.message});
     }
