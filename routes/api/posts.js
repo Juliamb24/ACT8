@@ -33,23 +33,13 @@ router.get('/author/:authorId', async (req, res) => {
 });
 
 
-
-
 router.post('/', async (req, res) => {
     try {
         const [result] = await createPost(req.body);
-<<<<<<< HEAD
         res.status(201).json({ message: 'Autor añadido correctamente', result });
         
     } catch (err) {
         res.status(500).json({ error: err.message });   
-=======
-        const message = "Publicación añadida correctamente"
-        res.json({result, message});
-        
-    } catch (err) {
-        res.json({ error: err.message });
->>>>>>> 19fc81e9f91b23a74c4b98806def4ce70fc4b067
     }
 });
 
@@ -58,12 +48,7 @@ router.post('/', async (req, res) => {
   router.put('/:postsId', async (req, res) =>{
     try{
         const [result] = await updatePost(req.params.postsId, req.body);
-<<<<<<< HEAD
         res.json({ message: 'Autor modificado correctamente', result });
-=======
-        const message = "Publicación modificada correctamente"
-        res.json({result, message});
->>>>>>> 19fc81e9f91b23a74c4b98806def4ce70fc4b067
     }catch(err){
         res.status(500).json({ error: err.message });
     }
@@ -75,13 +60,8 @@ router.post('/', async (req, res) => {
 router.delete('/:postsId', async(req, res) =>{
     try{
         const [result] = await deletePosts(req.params.postsId);
-<<<<<<< HEAD
         res.json({ message: 'Autor eliminado correctamente', result });
 
-=======
-        const message = "Publicación eliminada correctamente"
-        res.json({result, message});
->>>>>>> 19fc81e9f91b23a74c4b98806def4ce70fc4b067
     }catch(err){
         res.status(500).json({ error: err.message });
     }
