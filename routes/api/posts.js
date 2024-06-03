@@ -23,7 +23,7 @@ router.get('/author/:authorId', async (req, res) => {
 
 
         if (posts.length === 0) {
-            return res.json({ message: 'No hay publicaciones de este autor' });
+            return res.json({ message: 'No se encuentran publicaciones de este autor' });
         }
 
         res.json(posts);
