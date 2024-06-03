@@ -33,16 +33,7 @@ router.get('/author/:authorId', async (req, res) => {
 });
 
 
-// const result = await getAuthorById(authorId); 
 
-// if (!result || result.length === 0) {
-//     return res.status(404).json({ error: 'Publicación no encontrada' });
-// }
-
-// res.json(result);
-// } catch (err) {
-// res.status(500).json({ error: err.message });
-// }
 
 router.post('/', async (req, res) => {
     try {
